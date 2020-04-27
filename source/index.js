@@ -1,13 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import { Provider as ReduxProvider } from 'react-redux';
+import { fromJS } from 'immutable';
 
-import App from './App/App';
+import App from './components/App/App';
+import configureStore from './redux/configureStore';
+
+const store = configureStore(fromJS({}));
 
 const AppRender = () => {
   render(
     <AppContainer>
-      <App />
+      <ReduxProvider store={store}>
+        <App />
+      </ReduxProvider>
     </AppContainer>,
     document.getElementById('root')
   );
@@ -25,8 +32,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (module.hot) {
-  module.hot.accept('./App/App', () => {
-    const NextApp = require('./App/App').default;
+  module.hot.accept('./components/App/App', () => {
+    const NextApp = require('./components/App/App').default;
     render(
       <AppContainer>
         <NextApp />
