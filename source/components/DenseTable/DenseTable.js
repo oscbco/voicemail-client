@@ -8,6 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+
 import prettyMilliseconds from 'pretty-ms';
 
 const useStyles = makeStyles({
@@ -28,7 +30,7 @@ export default function DenseTable (props) {
       to: `Phone: ${toFieldArray[0]} Host: ${toFieldArray[1]}`,
       duration: prettyMilliseconds(row.length, { colonNotation: true })
     }
-  })
+  });
 
   return (
     <TableContainer component={Paper}>
@@ -36,6 +38,7 @@ export default function DenseTable (props) {
         <TableHead>
           <TableRow>
             <TableCell>Status</TableCell>
+            <TableCell>Select</TableCell>
             <TableCell>From</TableCell>
             <TableCell>To</TableCell>
             <TableCell>Duration</TableCell>
@@ -46,6 +49,15 @@ export default function DenseTable (props) {
             <TableRow key={row.media_id}>
               <TableCell component="th" scope="row">
                 {row.folder}
+              </TableCell>
+              <TableCell scope="row">
+                <Checkbox
+                  name={row.media_id}
+                  disabled={props.fetching}
+                  checked={props.selected.has(row.media_id)}
+                  onChange={props.selectMessage}
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
               </TableCell>
               <TableCell>{row.from}</TableCell>
               <TableCell>{row.to}</TableCell>
@@ -59,5 +71,8 @@ export default function DenseTable (props) {
 }
 
 DenseTable.propTypes = {
-  rows: PropTypes.object.isRequired
+  rows: PropTypes.object.isRequired,
+  selectMessage: PropTypes.func.isRequired,
+  selected: PropTypes.object.isRequired,
+  fetching: PropTypes.bool
 };
