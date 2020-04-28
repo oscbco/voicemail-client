@@ -36,7 +36,9 @@ if (module.hot) {
     const NextApp = require('./components/App/App').default;
     render(
       <AppContainer>
-        <NextApp />
+        <ReduxProvider store={store}>
+          <NextApp />
+        </ReduxProvider>
       </AppContainer>,
       document.getElementById('root'));
   });
