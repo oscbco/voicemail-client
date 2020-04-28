@@ -1,4 +1,4 @@
-// var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
@@ -122,9 +122,9 @@ module.exports = {
       title: 'Voicemail Client',
       template: './index.html'
     }),
-    new webpack.HotModuleReplacementPlugin()// ,
-    // new BundleAnalyzerPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new BundleAnalyzerPlugin()
   ],
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'none',
   target: 'web'
 };
